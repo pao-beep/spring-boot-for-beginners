@@ -24,6 +24,29 @@ jobs:
 
       - name: Build the app
         run: mvn clean & mvn -B package --file pom.xml
+      
+      - name: Build Docker Image
+        uses: actions/build-push-actions@v2
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: false
+          tags: ${{secrets.dockeruser}}/spring-boot-for-beginners:$(data--'%Y-%m-%d%H-%M-%s')
+
+      - name: login to docker hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{secrets.dockeruser}}
+          password: ${{secrets.dockerpwd}}
+
+      - name: Push to docker
+        uses: actions/build-push-actions@v2
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: true
+          tags: ${{secrets.dockeruser}}/spring-boot-for-beginners:$(data--'%Y-%m-%d%H-%M-%s')
+
 
       
 
