@@ -26,12 +26,12 @@ jobs:
         run: mvn clean & mvn -B package --file pom.xml
       
       - name: Build Docker Image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           dockerfile: Dockerfile
           push: false
-          tags: ${{secrets.dockeruser}}/spring-boot-for-beginners:latest
+          tags: ${{secrets.dockeruser}}/spring-boot-for-beginners:today
 
       - name: login to docker hub
         uses: docker/login-action@v1
@@ -40,12 +40,12 @@ jobs:
           password: ${{secrets.dockerpwd}}
 
       - name: Push to docker
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           dockerfile: Dockerfile
           push: true
-          tags: ${{secrets.dockeruser}}/spring-boot-for-beginners:latest
+          tags: ${{secrets.dockeruser}}/spring-boot-for-beginners:today
 
 
       
