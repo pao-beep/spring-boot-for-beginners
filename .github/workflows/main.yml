@@ -22,10 +22,8 @@ jobs:
       - name: Unit Tests
         run: mvn -B test --file pom.xml
 
-      - name: Build the on
-        run:
-          mvn clean
-          mvn -B package --file pom.xml
+      - name: Build the app
+        run: mvn clean & mvn -B package --file pom.xml
 
       
 
